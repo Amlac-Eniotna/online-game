@@ -13,5 +13,6 @@ export const GameConfig: Types.Core.GameConfig = {
       debug: false,
     },
   },
+  pixelArt: true,
   scene: [PreloadScene, MainScene],
 };
