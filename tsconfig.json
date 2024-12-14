@@ -14,7 +14,7 @@
     "jsx": "preserve",
     "incremental": true,
     "typeRoots": ["./node_modules/phaser/types"],
-    "types": ["Phaser"],
+    "types": ["phaser"],
     "plugins": [
       {
         "name": "next"

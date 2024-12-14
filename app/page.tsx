@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import Phaser from "phaser";
 import { GameConfig } from "@/phaser/config";
+import { Game } from "phaser";
+import { useEffect, useRef } from "react";
 
 const GamePage = () => {
   const gameRef = useRef<HTMLDivElement>(null);
@@ -10,7 +10,7 @@ const GamePage = () => {
   useEffect(() => {
     if (!gameRef.current) return;
 
-    const game = new Phaser.Game({
+    const game = new Game({
       ...GameConfig,
       parent: gameRef.current,
     });

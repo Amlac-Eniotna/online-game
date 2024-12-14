@@ -1,9 +1,9 @@
-import Phaser from "phaser";
-import { PreloadScene } from "./scenes/PreloadScene";
+import { AUTO, Types } from "phaser";
 import { MainScene } from "./scenes/MainScene";
+import { PreloadScene } from "./scenes/PreloadScene";
 
-export const GameConfig: Phaser.Types.Core.GameConfig = {
-  type: Phaser.AUTO,
+export const GameConfig: Types.Core.GameConfig = {
+  type: AUTO,
   width: 800,
   height: 600,
   physics: {
