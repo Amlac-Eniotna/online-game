@@ -129,6 +129,7 @@ Visit [http://localhost:3000](http://localhost:3000)
 | `npm run lint` | Run ESLint |
 | `npm run db:generate` | Generate Prisma client |
 | `npm run db:push` | Push schema to database |
+| `npm run db:seed` | Seed database with cards & heroes |
 | `npm run db:studio` | Open Prisma Studio |
 
 ## 🗄️ Database Schema
@@ -160,14 +161,30 @@ See [GAME_DESIGN.md](./GAME_DESIGN.md) for complete game design, mechanics, and 
 
 ## 🚧 Development Status
 
-**Current Phase:** MVP Setup Complete ✅
+**Current Phase:** Week 2 - Game Engine Complete ✅
 
-**Next Steps:**
-- [ ] Implement card system logic
-- [ ] Build game state machine
-- [ ] Create 50 base cards
-- [ ] Implement matchmaking
-- [ ] Add socket.io for real-time
+**Completed (Week 1):**
+- ✅ Next.js 16 + Prisma setup
+- ✅ Better-Auth authentication
+- ✅ Zustand state management
+- ✅ Phaser integration
+
+**Completed (Week 2):**
+- ✅ 50 base cards defined
+- ✅ 9 heroes with unique powers
+- ✅ Card effect system (40+ effects)
+- ✅ Game state machine
+- ✅ Turn logic (draw, play, combat, end)
+- ✅ Combat resolution system
+- ✅ Database seed script
+- ✅ Game engine tested ✅
+
+**Next Steps (Week 3):**
+- [ ] Deck builder UI
+- [ ] Collection view UI
+- [ ] Socket.io matchmaking
+- [ ] Interactive Phaser game board
+- [ ] Real-time game sync
 
 ## 🤝 Contributing
 
