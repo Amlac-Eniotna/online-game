@@ -1,8 +1,8 @@
-# Merc Deck Madness - Game Design Document
+# Madness Rumble Space - Game Design Document
 
 ## 🎮 Game Overview
 
-**Title:** Merc Deck Madness
+**Title:** Madness Rumble Space
 **Genre:** Multiplayer Card Game (CCG)
 **Theme:** Galaxy Misfits - Humorous Space Mercenaries
 **Platform:** Web (Desktop + Mobile Browser)

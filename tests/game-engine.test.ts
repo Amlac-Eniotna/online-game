@@ -7,7 +7,7 @@ import { GameEngine } from '../lib/game/game-engine';
 import { createGameState, createStarterDeck, formatGameState } from '../lib/game/game-utils';
 
 function testGameEngine() {
-  console.log('🎮 Testing Merc Deck Madness Game Engine\n');
+  console.log('🎮 Testing Madness Rumble Space Game Engine\n');
 
   // Create two starter decks
   const player1Deck = createStarterDeck();

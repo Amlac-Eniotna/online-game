@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSocket } from '@/hooks/useSocket';
+import { useSession } from '@/lib/auth/client';
 import MatchmakingModal from '@/components/matchmaking/MatchmakingModal';
 
 interface Deck {
@@ -20,15 +21,25 @@ interface Deck {
 export default function PlayPage() {
   const router = useRouter();
   const socket = useSocket();
+  const { data: session, isPending: sessionLoading } = useSession();
   const [decks, setDecks] = useState<Deck[]>([]);
   const [selectedDeck, setSelectedDeck] = useState<Deck | null>(null);
   const [loading, setLoading] = useState(true);
   const [showDeckSelect, setShowDeckSelect] = useState(false);
   const [gameMode, setGameMode] = useState<'quick' | 'ranked'>('quick');
 
+  // Redirect to login if not authenticated
   useEffect(() => {
-    fetchDecks();
-  }, []);
+    if (!sessionLoading && !session) {
+      router.push('/login');
+    }
+  }, [session, sessionLoading, router]);
+
+  useEffect(() => {
+    if (session) {
+      fetchDecks();
+    }
+  }, [session]);
 
   // Navigate to game when match starts
   useEffect(() => {
@@ -70,9 +81,14 @@ export default function PlayPage() {
       return;
     }
 
-    // TODO: Get actual user ID and username from auth
-    const userId = 'user-123'; // Replace with actual user ID
-    const username = 'Player'; // Replace with actual username
+    if (!session?.user) {
+      alert('You must be logged in to play');
+      router.push('/login');
+      return;
+    }
+
+    const userId = session.user.id;
+    const username = session.user.name || session.user.email || 'Player';
 
     socket.joinQueue(userId, username, selectedDeck.heroId, []);
     setShowDeckSelect(false);
@@ -87,7 +103,7 @@ export default function PlayPage() {
     console.log('Match accepted');
   };
 
-  if (loading) {
+  if (loading || sessionLoading) {
     return (
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center h-96">
@@ -100,9 +116,19 @@ export default function PlayPage() {
     );
   }
 
+  if (!session) {
+    return null; // Will redirect to login
+  }
+
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">Play</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-4xl font-bold">Play</h1>
+        <div className="text-right">
+          <p className="text-gray-400 text-sm">Logged in as</p>
+          <p className="text-space-cyan font-bold">{session.user.name || session.user.email}</p>
+        </div>
+      </div>
 
       {/* Connection Status */}
       <div className="mb-6">

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Merc Deck Madness",
+  title: "Madness Rumble Space",
   description: "A chaotic multiplayer card game set in space",
 };
 

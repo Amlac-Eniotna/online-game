@@ -16,7 +16,7 @@ export class MainMenu extends Scene {
     this.cameras.main.setBackgroundColor('#0a0e27');
 
     // Title with gradient effect (simulated)
-    this.titleText = this.add.text(width / 2, height / 3, 'Merc Deck Madness', {
+    this.titleText = this.add.text(width / 2, height / 3, 'Madness Rumble Space', {
       fontFamily: 'Arial Black',
       fontSize: 48,
       color: '#6b46c1',

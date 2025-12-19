@@ -1,4 +1,4 @@
-# 🚀 Merc Deck Madness
+# 🚀 Madness Rumble Space
 
 A chaotic multiplayer card game featuring Galaxy Misfits battling across the cosmos!
 
@@ -31,7 +31,7 @@ A chaotic multiplayer card game featuring Galaxy Misfits battling across the cos
 ### 1. Install Dependencies
 
 ```bash
-npm install
+npm install --legacy-peer-deps
 ```
 
 ### 2. Setup Environment Variables
@@ -43,9 +43,19 @@ cp .env.example .env
 Edit `.env` with your configuration:
 
 ```env
-DATABASE_URL="postgresql://user:password@localhost:5432/merc_deck_madness"
-BETTER_AUTH_SECRET="your-secret-key"
+# Database
+DATABASE_URL="postgresql://postgres:password@localhost:5432/merc_deck_madness"
+
+# Authentication
+BETTER_AUTH_SECRET="your-super-secret-key-generate-with-openssl-rand-base64-32"
 BETTER_AUTH_URL="http://localhost:3000"
+
+# Socket.io
+NEXT_PUBLIC_SOCKET_URL="http://localhost:3001"
+SOCKET_PORT=3001
+
+# Application
+NODE_ENV="development"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 
@@ -58,17 +68,43 @@ npm run db:generate
 # Push schema to database
 npm run db:push
 
+# Seed database with 50 cards and 9 heroes
+npm run db:seed
+
 # (Optional) Open Prisma Studio to view database
 npm run db:studio
 ```
 
 ### 4. Run Development Server
 
+**Option A: Run everything (recommended)**
 ```bash
+npm run dev:all
+```
+This starts both Next.js (port 3000) and Socket.io (port 3001).
+
+**Option B: Run separately**
+```bash
+# Terminal 1 - Next.js
 npm run dev
+
+# Terminal 2 - Socket.io server
+npm run dev:socket
 ```
 
-Visit [http://localhost:3000](http://localhost:3000)
+### 5. Access the App
+
+- **App:** [http://localhost:3000](http://localhost:3000)
+- **Register:** [http://localhost:3000/register](http://localhost:3000/register)
+- **Login:** [http://localhost:3000/login](http://localhost:3000/login)
+- **Play:** [http://localhost:3000/play](http://localhost:3000/play)
+
+### 6. First Time Setup
+
+1. Create an account at `/register`
+2. Visit the **Shop** to open booster packs (you start with 0 coins for now)
+3. Build a **Deck** (10 cards + 1 hero)
+4. Click **Play** and find a match!
 
 ## 📁 Project Structure
 
@@ -163,15 +199,15 @@ See [GAME_DESIGN.md](./GAME_DESIGN.md) for complete game design, mechanics, and 
 
 ## 🚧 Development Status
 
-**Current Phase:** Week 3 - UI & Multiplayer COMPLETE ✅
+**Current Phase:** CORE COMPLETE ✅ 🎉
 
-**Completed (Week 1):**
+### Week 1 - Architecture ✅
 - ✅ Next.js 16 + Prisma setup
 - ✅ Better-Auth authentication
 - ✅ Zustand state management
 - ✅ Phaser integration
 
-**Completed (Week 2):**
+### Week 2 - Game Engine ✅
 - ✅ 50 base cards defined
 - ✅ 9 heroes with unique powers
 - ✅ Card effect system (40+ effects)
@@ -179,9 +215,9 @@ See [GAME_DESIGN.md](./GAME_DESIGN.md) for complete game design, mechanics, and 
 - ✅ Turn logic (draw, play, combat, end)
 - ✅ Combat resolution system
 - ✅ Database seed script
-- ✅ Game engine tested ✅
+- ✅ Game engine tested
 
-**Completed (Week 3):**
+### Week 3 - UI & Multiplayer ✅
 - ✅ Card UI components (Card, CardList, CardFilters)
 - ✅ Collection view with filters
 - ✅ Hero selection component
@@ -189,13 +225,28 @@ See [GAME_DESIGN.md](./GAME_DESIGN.md) for complete game design, mechanics, and 
 - ✅ Shop with booster opening
 - ✅ Socket.io server with matchmaking
 - ✅ Real-time game synchronization
-- ✅ Full multiplayer infrastructure ✅
+- ✅ Full multiplayer infrastructure
 
-**Bonus (Optional):**
-- [ ] Phaser game board visuals
-- [ ] API integration (collection, decks, shop)
-- [ ] Sound effects and animations
-- [ ] Victory/defeat screens
+### API Integration ✅
+- ✅ Collection API (fetch user cards)
+- ✅ Decks API (CRUD operations)
+- ✅ Shop API (booster purchases)
+- ✅ Real authentication integration
+
+### Phaser Game Board ✅
+- ✅ Interactive game board
+- ✅ Drag & drop cards to play
+- ✅ Attack system (select attacker → select target)
+- ✅ Hero power button
+- ✅ Victory/defeat screens
+- ✅ Real-time state synchronization
+
+### Remaining (Future Enhancements)
+- [ ] Sound effects and music
+- [ ] More card animations
+- [ ] Spectator mode
+- [ ] Replay system
+- [ ] Mobile touch controls optimization
 
 ## 🤝 Contributing
 

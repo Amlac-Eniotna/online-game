@@ -1,5 +1,5 @@
 /**
- * Core game types for Merc Deck Madness
+ * Core game types for Madness Rumble Space
  */
 
 export interface Card {

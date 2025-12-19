@@ -5,7 +5,7 @@ export default function HomePage() {
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <div className="text-center space-y-8">
         <h1 className="text-6xl font-bold bg-gradient-to-r from-space-purple via-space-blue to-space-cyan bg-clip-text text-transparent">
-          Merc Deck Madness
+          Madness Rumble Space
         </h1>
         <p className="text-xl text-gray-300">
           A chaotic multiplayer card game featuring Galaxy Misfits

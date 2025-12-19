@@ -2,7 +2,7 @@
 
 ## ✅ Objectifs Atteints (100%)
 
-La Semaine 3 est COMPLÈTE ! Nous avons créé toute l'infrastructure UI et multiplayer pour Merc Deck Madness.
+La Semaine 3 est COMPLÈTE ! Nous avons créé toute l'infrastructure UI et multiplayer pour Madness Rumble Space.
 
 ---
 

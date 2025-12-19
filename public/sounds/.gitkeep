@@ -1,0 +1,24 @@
+# Sound Effects Directory
+
+Add your sound files here. Recommended format: MP3 or OGG
+
+## Required Files:
+- card-play.mp3
+- card-draw.mp3
+- attack.mp3
+- damage.mp3
+- death.mp3
+- hero-power.mp3
+- turn-start.mp3
+- turn-end.mp3
+- victory.mp3
+- defeat.mp3
+- match-found.mp3
+- button-click.mp3
+- button-hover.mp3
+- error.mp3
+
+## Free Sound Resources:
+- https://freesound.org/
+- https://mixkit.co/free-sound-effects/
+- https://www.zapsplat.com/

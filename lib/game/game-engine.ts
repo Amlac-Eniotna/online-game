@@ -1,5 +1,5 @@
 /**
- * Core Game Engine for Merc Deck Madness
+ * Core Game Engine for Madness Rumble Space
  * Handles game state, turns, and action resolution
  */
 

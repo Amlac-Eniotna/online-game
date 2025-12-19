@@ -1,5 +1,5 @@
 /**
- * All 50 base cards for Merc Deck Madness
+ * All 50 base cards for Madness Rumble Space
  *
  * Distribution:
  * - 25 Common

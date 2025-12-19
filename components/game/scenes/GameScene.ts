@@ -13,10 +13,17 @@ export class GameScene extends Scene {
   private playerHPText!: Phaser.GameObjects.Text;
   private opponentHPText!: Phaser.GameObjects.Text;
   private endTurnBtn!: Phaser.GameObjects.Text;
+  private heroPowerBtn!: Phaser.GameObjects.Container;
+  private opponentHeroTarget!: Phaser.GameObjects.Container;
 
   // Card objects
   private handCards: Map<string, Phaser.GameObjects.Container> = new Map();
   private boardCreatures: Map<string, Phaser.GameObjects.Container> = new Map();
+
+  // Attack selection state
+  private selectedAttacker: string | null = null;
+  private selectedAttackerContainer: Phaser.GameObjects.Container | null = null;
+  private attackModeText: Phaser.GameObjects.Text | null = null;
 
   constructor() {
     super('GameScene');
@@ -34,8 +41,65 @@ export class GameScene extends Scene {
     // Listen for game state updates
     EventBus.on('game-state-update', this.handleGameStateUpdate, this);
 
+    // ESC key to cancel attack selection
+    this.input.keyboard?.on('keydown-ESC', () => {
+      this.cancelAttackSelection();
+    });
+
+    // Click on background to cancel selection
+    this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+      // Only cancel if not clicking on an interactive object
+      if (!this.input.hitTestPointer(pointer).length) {
+        this.cancelAttackSelection();
+      }
+    });
+
     // Emit scene ready
     EventBus.emit('current-scene-ready', this);
+  }
+
+  private selectAttacker(creatureId: string, container: Phaser.GameObjects.Container) {
+    // Deselect previous
+    this.cancelAttackSelection();
+
+    // Select new attacker
+    this.selectedAttacker = creatureId;
+    this.selectedAttackerContainer = container;
+
+    // Visual feedback - green glow
+    const bg = container.getAt(0) as Phaser.GameObjects.Rectangle;
+    bg.setStrokeStyle(4, 0x22c55e, 1);
+
+    // Show attack mode indicator
+    const { width } = this.cameras.main;
+    this.attackModeText = this.add.text(width / 2, 50, '⚔️ SELECT TARGET (ESC to cancel)', {
+      fontFamily: 'Arial Black',
+      fontSize: 18,
+      color: '#22c55e',
+    }).setOrigin(0.5).setDepth(200);
+  }
+
+  private cancelAttackSelection() {
+    if (this.selectedAttackerContainer) {
+      const bg = this.selectedAttackerContainer.getAt(0) as Phaser.GameObjects.Rectangle;
+      bg.setStrokeStyle(3, 0x06b6d4, 1);
+    }
+    this.selectedAttacker = null;
+    this.selectedAttackerContainer = null;
+
+    if (this.attackModeText) {
+      this.attackModeText.destroy();
+      this.attackModeText = null;
+    }
+  }
+
+  private executeAttack(targetId: string) {
+    if (!this.selectedAttacker) return;
+
+    console.log('Executing attack:', this.selectedAttacker, '->', targetId);
+    EventBus.emit('attack', { attackerId: this.selectedAttacker, targetId });
+
+    this.cancelAttackSelection();
   }
 
   private handleGameStateUpdate(gameState: GameState) {
@@ -133,6 +197,12 @@ export class GameScene extends Scene {
       EventBus.emit('end-turn');
     });
 
+    // Hero Power button
+    this.createHeroPowerButton(width - 120, height / 2 + 60);
+
+    // Opponent Hero (attack target)
+    this.createOpponentHeroTarget(width - 80, 80);
+
     // Player HP
     this.playerHPText = this.add.text(20, height - 40, '❤️ 20/20 HP', {
       fontFamily: 'Arial',
@@ -145,6 +215,75 @@ export class GameScene extends Scene {
       fontFamily: 'Arial',
       fontSize: 20,
       color: '#ef4444',
+    });
+  }
+
+  private createHeroPowerButton(x: number, y: number) {
+    this.heroPowerBtn = this.add.container(x, y);
+
+    const bg = this.add.rectangle(0, 0, 100, 50, 0x7c3aed);
+    bg.setStrokeStyle(2, 0xa855f7);
+
+    const text = this.add.text(0, 0, '⚡ Power', {
+      fontFamily: 'Arial Black',
+      fontSize: 14,
+      color: '#ffffff',
+    }).setOrigin(0.5);
+
+    const costText = this.add.text(0, 18, '(2)', {
+      fontFamily: 'Arial',
+      fontSize: 12,
+      color: '#d8b4fe',
+    }).setOrigin(0.5);
+
+    this.heroPowerBtn.add([bg, text, costText]);
+    this.heroPowerBtn.setSize(100, 50);
+    this.heroPowerBtn.setInteractive({ useHandCursor: true });
+
+    this.heroPowerBtn.on('pointerover', () => {
+      this.heroPowerBtn.setScale(1.1);
+    });
+
+    this.heroPowerBtn.on('pointerout', () => {
+      this.heroPowerBtn.setScale(1);
+    });
+
+    this.heroPowerBtn.on('pointerdown', () => {
+      console.log('Hero power clicked');
+      EventBus.emit('use-power', {});
+    });
+  }
+
+  private createOpponentHeroTarget(x: number, y: number) {
+    this.opponentHeroTarget = this.add.container(x, y);
+
+    const bg = this.add.circle(0, 0, 35, 0xec4899, 0.3);
+    bg.setStrokeStyle(3, 0xec4899);
+
+    const icon = this.add.text(0, 0, '👤', {
+      fontSize: 30,
+    }).setOrigin(0.5);
+
+    this.opponentHeroTarget.add([bg, icon]);
+    this.opponentHeroTarget.setSize(70, 70);
+    this.opponentHeroTarget.setInteractive({ useHandCursor: true });
+
+    this.opponentHeroTarget.on('pointerover', () => {
+      if (this.selectedAttacker) {
+        bg.setStrokeStyle(4, 0xef4444);
+        this.opponentHeroTarget.setScale(1.1);
+      }
+    });
+
+    this.opponentHeroTarget.on('pointerout', () => {
+      bg.setStrokeStyle(3, 0xec4899);
+      this.opponentHeroTarget.setScale(1);
+    });
+
+    this.opponentHeroTarget.on('pointerdown', () => {
+      if (this.selectedAttacker) {
+        this.executeAttack('opponent-hero');
+      }
     });
   }
 
@@ -331,13 +470,47 @@ export class GameScene extends Scene {
 
     container.add([bg, nameText, attackText, healthText]);
 
-    // Make clickable for attacks
-    if (!isOpponent && creature.canAttack) {
-      container.setInteractive({ useHandCursor: true });
+    // Make interactive
+    container.setSize(width, height);
+    container.setInteractive({ useHandCursor: true });
+
+    if (!isOpponent) {
+      // Player creature - can be selected as attacker
+      if (creature.canAttack) {
+        container.on('pointerdown', () => {
+          this.selectAttacker(creature.id, container);
+        });
+
+        container.on('pointerover', () => {
+          if (!this.selectedAttacker || this.selectedAttacker !== creature.id) {
+            container.setScale(1.05);
+          }
+        });
+
+        container.on('pointerout', () => {
+          if (!this.selectedAttacker || this.selectedAttacker !== creature.id) {
+            container.setScale(1);
+          }
+        });
+      }
+    } else {
+      // Opponent creature - can be target when in attack mode
+      container.on('pointerover', () => {
+        if (this.selectedAttacker) {
+          bg.setStrokeStyle(4, 0xef4444);
+          container.setScale(1.1);
+        }
+      });
+
+      container.on('pointerout', () => {
+        bg.setStrokeStyle(2, 0xec4899, 0.5);
+        container.setScale(1);
+      });
+
       container.on('pointerdown', () => {
-        // Highlight for attack selection
-        console.log('Creature selected for attack:', creature.id);
-        // TODO: Select target
+        if (this.selectedAttacker) {
+          this.executeAttack(creature.id);
+        }
       });
     }
 

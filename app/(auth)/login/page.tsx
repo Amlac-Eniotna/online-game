@@ -36,7 +36,7 @@ export default function LoginPage() {
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-space-purple to-space-cyan bg-clip-text text-transparent">
-            Merc Deck Madness
+            Madness Rumble Space
           </h1>
           <p className="mt-2 text-gray-400">Sign in to your account</p>
         </div>
