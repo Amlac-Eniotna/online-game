@@ -9,6 +9,7 @@ async function main() {
 
   // Clear existing data
   console.log('🗑️  Clearing existing data...');
+  await prisma.deckCard.deleteMany();
   await prisma.userCard.deleteMany();
   await prisma.deck.deleteMany();
   await prisma.heroProgress.deleteMany();
@@ -97,9 +98,9 @@ async function main() {
 
   const demoUser = await prisma.user.create({
     data: {
-      username: 'demo-player',
-      email: 'demo@mercdeckmadness.com',
-      passwordHash: 'demo-hash', // In real app, use proper hashing
+      name: 'Demo Player',
+      email: 'demo@madnessrumblespace.com',
+      emailVerified: true,
       coins: 10000,
       premiumCoins: 1000,
       xp: 500,
@@ -110,7 +111,7 @@ async function main() {
     },
   });
 
-  console.log(`  ✓ Created user: ${demoUser.username}`);
+  console.log(`  ✓ Created user: ${demoUser.name}`);
 
   // Give demo user some starter cards
   console.log('\n🎁 Giving demo user starter cards...');
@@ -167,8 +168,8 @@ async function main() {
       include: { card: true },
     });
 
-    // Build a 10-card deck
-    const deckCards = userCards.slice(0, 10).map(uc => ({
+    // Build a 10-card deck using the deckCards relation
+    const deckCardData = userCards.slice(0, 10).map(uc => ({
       cardId: uc.cardId,
       quantity: 1,
     }));
@@ -178,8 +179,10 @@ async function main() {
         userId: demoUser.id,
         heroId: jetpackJunkie.id,
         name: 'Jetpack Starter Deck',
-        cards: deckCards,
         isActive: true,
+        deckCards: {
+          create: deckCardData,
+        },
       },
     });
 
@@ -237,7 +240,7 @@ async function main() {
   console.log('📊 Summary:');
   console.log(`  - ${HEROES.length} Heroes`);
   console.log(`  - ${CARDS.length} Cards`);
-  console.log(`  - 1 Demo User (${demoUser.username})`);
+  console.log(`  - 1 Demo User (${demoUser.name})`);
   console.log(`  - 1 Starter Deck`);
   console.log(`  - 1 Active Season\n`);
 }
