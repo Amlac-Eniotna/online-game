@@ -1,0 +1,426 @@
+// Prisma schema for Merc Deck Madness
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USER & AUTHENTICATION
+// ============================================
+
+model User {
+  id            String    @id @default(cuid())
+  username      String    @unique
+  email         String    @unique
+  passwordHash  String
+
+  // Progression
+  coins         Int       @default(0)
+  premiumCoins  Int       @default(0)
+  xp            Int       @default(0)
+  level         Int       @default(1)
+
+  // Stats
+  gamesPlayed   Int       @default(0)
+  gamesWon      Int       @default(0)
+
+  // Ranked
+  rank          Int       @default(0)
+  season        Int       @default(1)
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  ownedCards    UserCard[]
+  decks         Deck[]
+  matchesAsP1   Match[]    @relation("Player1Matches")
+  matchesAsP2   Match[]    @relation("Player2Matches")
+  wonMatches    Match[]    @relation("WinnerMatches")
+  friends       Friendship[] @relation("UserFriendships")
+  friendOf      Friendship[] @relation("FriendOfUser")
+  quests        UserQuest[]
+  heroProgress  HeroProgress[]
+  transactions  Transaction[]
+
+  @@index([username])
+  @@index([rank])
+}
+
+// ============================================
+// FRIENDSHIP SYSTEM
+// ============================================
+
+model Friendship {
+  id          String   @id @default(cuid())
+  userId      String
+  friendId    String
+  status      FriendshipStatus @default(PENDING)
+  createdAt   DateTime @default(now())
+
+  user        User     @relation("UserFriendships", fields: [userId], references: [id], onDelete: Cascade)
+  friend      User     @relation("FriendOfUser", fields: [friendId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, friendId])
+  @@index([userId])
+  @@index([friendId])
+}
+
+enum FriendshipStatus {
+  PENDING
+  ACCEPTED
+  BLOCKED
+}
+
+// ============================================
+// CARDS
+// ============================================
+
+model Card {
+  id          String     @id @default(cuid())
+  name        String
+  type        CardType
+  rarity      CardRarity
+  cost        Int        @default(0) // No mana system, but cost for balance
+
+  // Stats (for creatures)
+  attack      Int?
+  health      Int?
+
+  // Effect description
+  effect      String?
+  effectCode  String?    // JSON or code reference for game logic
+
+  // Hero-specific effects
+  heroEffects Json?      // Map of heroId -> different effect
+
+  // Visual
+  imageUrl    String?
+  flavorText  String?
+
+  // Metadata
+  set         String     @default("base")
+  createdAt   DateTime   @default(now())
+
+  // Relations
+  ownedBy     UserCard[]
+
+  @@index([type])
+  @@index([rarity])
+  @@index([set])
+}
+
+enum CardType {
+  CREATURE
+  SPELL
+  EQUIPMENT
+  TRAP
+}
+
+enum CardRarity {
+  COMMON
+  RARE
+  EPIC
+  LEGENDARY
+  MYTHIC
+  SEASONAL
+}
+
+// ============================================
+// USER CARD OWNERSHIP
+// ============================================
+
+model UserCard {
+  id         String   @id @default(cuid())
+  userId     String
+  cardId     String
+  quantity   Int      @default(1)
+  isGolden   Boolean  @default(false)
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  card       Card     @relation(fields: [cardId], references: [id])
+
+  @@unique([userId, cardId, isGolden])
+  @@index([userId])
+}
+
+// ============================================
+// HEROES (9 Galaxy Misfits)
+// ============================================
+
+model Hero {
+  id            String   @id @default(cuid())
+  name          String   @unique
+  class         String   // Jetpack Junkie, Rocket Maniac, etc.
+  description   String
+
+  // Hero Power
+  powerName     String
+  powerEffect   String
+  powerCost     Int      @default(2)
+
+  // Visual
+  imageUrl      String?
+  portraitUrl   String?
+
+  // Metadata
+  baseHealth    Int      @default(20)
+
+  // Relations
+  decks         Deck[]
+  progress      HeroProgress[]
+
+  @@index([class])
+}
+
+// ============================================
+// HERO PROGRESSION (Hero Mastery)
+// ============================================
+
+model HeroProgress {
+  id         String   @id @default(cuid())
+  userId     String
+  heroId     String
+  xp         Int      @default(0)
+  level      Int      @default(1)
+  gamesPlayed Int     @default(0)
+  gamesWon   Int      @default(0)
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hero       Hero     @relation(fields: [heroId], references: [id])
+
+  @@unique([userId, heroId])
+  @@index([userId])
+}
+
+// ============================================
+// DECKS
+// ============================================
+
+model Deck {
+  id          String   @id @default(cuid())
+  userId      String
+  heroId      String
+  name        String
+  cards       Json     // Array of { cardId, quantity }
+  isActive    Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hero        Hero     @relation(fields: [heroId], references: [id])
+
+  @@index([userId])
+  @@index([heroId])
+}
+
+// ============================================
+// MATCHES
+// ============================================
+
+model Match {
+  id          String      @id @default(cuid())
+  player1Id   String
+  player2Id   String
+  winnerId    String?
+
+  ranked      Boolean     @default(false)
+
+  // Match data
+  turns       Int         @default(0)
+  duration    Int?        // in seconds
+  replayData  Json?       // Full game state for replays
+
+  // Rewards
+  player1Coins Int        @default(0)
+  player2Coins Int        @default(0)
+  player1Xp   Int         @default(0)
+  player2Xp   Int         @default(0)
+
+  createdAt   DateTime    @default(now())
+
+  player1     User        @relation("Player1Matches", fields: [player1Id], references: [id])
+  player2     User        @relation("Player2Matches", fields: [player2Id], references: [id])
+  winner      User?       @relation("WinnerMatches", fields: [winnerId], references: [id])
+
+  @@index([player1Id])
+  @@index([player2Id])
+  @@index([winnerId])
+  @@index([ranked])
+  @@index([createdAt])
+}
+
+// ============================================
+// QUESTS (Daily/Weekly)
+// ============================================
+
+model Quest {
+  id          String      @id @default(cuid())
+  name        String
+  description String
+  type        QuestType
+
+  // Requirements
+  requirement Json        // { type: "WIN_GAMES", count: 3, heroClass: "Jetpack Junkie" }
+
+  // Rewards
+  coinsReward Int         @default(0)
+  xpReward    Int         @default(0)
+
+  // Timing
+  duration    QuestDuration
+
+  users       UserQuest[]
+
+  @@index([type])
+}
+
+enum QuestType {
+  DAILY
+  WEEKLY
+  SPECIAL
+}
+
+enum QuestDuration {
+  DAILY
+  WEEKLY
+  SEASONAL
+}
+
+model UserQuest {
+  id          String   @id @default(cuid())
+  userId      String
+  questId     String
+  progress    Int      @default(0)
+  completed   Boolean  @default(false)
+  claimed     Boolean  @default(false)
+
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quest       Quest    @relation(fields: [questId], references: [id])
+
+  @@unique([userId, questId])
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// ============================================
+// SEASONS
+// ============================================
+
+model Season {
+  id          String   @id @default(cuid())
+  number      Int      @unique
+  name        String
+  startDate   DateTime
+  endDate     DateTime
+
+  // Rewards tiers (JSON array)
+  rewards     Json
+
+  active      Boolean  @default(false)
+
+  @@index([active])
+  @@index([endDate])
+}
+
+// ============================================
+// SHOP & TRANSACTIONS
+// ============================================
+
+model ShopItem {
+  id          String      @id @default(cuid())
+  name        String
+  type        ShopItemType
+  price       Int
+  premiumPrice Int?
+
+  // Contents (for boosters)
+  contents    Json?
+
+  // Visual
+  imageUrl    String?
+
+  // Timing
+  featured    Boolean     @default(false)
+  availableFrom DateTime?
+  availableUntil DateTime?
+
+  transactions Transaction[]
+
+  @@index([type])
+  @@index([featured])
+}
+
+enum ShopItemType {
+  BOOSTER
+  HERO_SKIN
+  CARD_BACK
+  EMOTE
+  BATTLE_PASS
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  userId      String
+  itemId      String
+
+  pricePaid   Int
+  currency    Currency
+
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  item        ShopItem @relation(fields: [itemId], references: [id])
+
+  @@index([userId])
+  @@index([createdAt])
+}
+
+enum Currency {
+  COINS
+  PREMIUM_COINS
+}
+
+// ============================================
+// BATTLE PASS
+// ============================================
+
+model BattlePass {
+  id          String   @id @default(cuid())
+  seasonId    String
+  name        String
+
+  // Tiers (JSON array of rewards)
+  freeTiers   Json
+  premiumTiers Json
+
+  price       Int
+
+  createdAt   DateTime @default(now())
+
+  @@index([seasonId])
+}
+
+model UserBattlePass {
+  id          String   @id @default(cuid())
+  userId      String
+  seasonId    String
+
+  tier        Int      @default(0)
+  xp          Int      @default(0)
+  isPremium   Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+
+  @@unique([userId, seasonId])
+  @@index([userId])
+}
