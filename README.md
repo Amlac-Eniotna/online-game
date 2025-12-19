@@ -123,7 +123,9 @@ Visit [http://localhost:3000](http://localhost:3000)
 
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server |
+| `npm run dev` | Start Next.js development server |
+| `npm run dev:socket` | Start Socket.io server (port 3001) |
+| `npm run dev:all` | **Run both Next.js + Socket.io** ⭐ |
 | `npm run build` | Build for production |
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
@@ -161,7 +163,7 @@ See [GAME_DESIGN.md](./GAME_DESIGN.md) for complete game design, mechanics, and 
 
 ## 🚧 Development Status
 
-**Current Phase:** Week 2 - Game Engine Complete ✅
+**Current Phase:** Week 3 - UI & Multiplayer COMPLETE ✅
 
 **Completed (Week 1):**
 - ✅ Next.js 16 + Prisma setup
@@ -179,12 +181,21 @@ See [GAME_DESIGN.md](./GAME_DESIGN.md) for complete game design, mechanics, and 
 - ✅ Database seed script
 - ✅ Game engine tested ✅
 
-**Next Steps (Week 3):**
-- [ ] Deck builder UI
-- [ ] Collection view UI
-- [ ] Socket.io matchmaking
-- [ ] Interactive Phaser game board
-- [ ] Real-time game sync
+**Completed (Week 3):**
+- ✅ Card UI components (Card, CardList, CardFilters)
+- ✅ Collection view with filters
+- ✅ Hero selection component
+- ✅ Deck builder UI
+- ✅ Shop with booster opening
+- ✅ Socket.io server with matchmaking
+- ✅ Real-time game synchronization
+- ✅ Full multiplayer infrastructure ✅
+
+**Bonus (Optional):**
+- [ ] Phaser game board visuals
+- [ ] API integration (collection, decks, shop)
+- [ ] Sound effects and animations
+- [ ] Victory/defeat screens
 
 ## 🤝 Contributing
 
