@@ -38,3 +38,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# prisma
+prisma/migrations
+
+# old phaser project (keep for reference)
+my-phaser-game/node_modules
+my-phaser-game/dist
