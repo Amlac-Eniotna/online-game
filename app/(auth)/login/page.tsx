@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { signIn } from "@/lib/auth/client";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -87,7 +87,7 @@ export default function LoginPage() {
           </button>
 
           <p className="text-center text-sm text-gray-400">
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link href="/register" className="text-space-cyan hover:underline">
               Sign up
             </Link>

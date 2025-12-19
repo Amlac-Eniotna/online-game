@@ -1,7 +1,7 @@
 "use client";
 
+import { CardRarity, CardType } from '@prisma/client';
 import { useState } from 'react';
-import { CardType, CardRarity } from '@prisma/client';
 
 interface CardFiltersProps {
   onFilterChange: (filters: {
@@ -18,7 +18,12 @@ export default function CardFilters({ onFilterChange }: CardFiltersProps) {
   const [rarity, setRarity] = useState<CardRarity | 'ALL'>('ALL');
   const [sortBy, setSortBy] = useState<'name' | 'cost' | 'rarity'>('name');
 
-  const handleChange = (newFilters: Partial<typeof filters>) => {
+  const handleChange = (newFilters: Partial<{
+    search: string;
+    type: CardType | 'ALL';
+    rarity: CardRarity | 'ALL';
+    sortBy: 'name' | 'cost' | 'rarity';
+  }>) => {
     const filters = { search, type, rarity, sortBy, ...newFilters };
     onFilterChange(filters);
   };

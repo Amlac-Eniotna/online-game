@@ -57,7 +57,7 @@ async function main() {
         health: cardData.health,
         effect: cardData.effect,
         effectCode: cardData.effectCode,
-        heroEffects: cardData.heroEffects || null,
+        heroEffects: cardData.heroEffects ?? undefined,
         flavorText: cardData.flavorText,
         imageUrl: `/cards/${cardData.name.toLowerCase().replace(/\s+/g, '-')}.png`, // Placeholder
         set: cardData.set,

@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState, useCallback, useRef } from 'react';
-import { io, Socket } from 'socket.io-client';
 import type { GameState } from '@/lib/game/game-types';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { io, Socket } from 'socket.io-client';
 
 export type MatchmakingStatus = 'idle' | 'searching' | 'found' | 'in-game';
 
@@ -20,7 +20,7 @@ export interface UseSocketReturn extends SocketState {
   leaveQueue: () => void;
   playCard: (cardId: string, position?: number, targetId?: string) => void;
   attack: (attackerId: string, targetId: string) => void;
-  useHeroPower: (targetId?: string, position?: number) => void;
+  activateHeroPower: (targetId?: string, position?: number) => void;
   endTurn: () => void;
   disconnect: () => void;
 }
@@ -193,7 +193,7 @@ export function useSocket(): UseSocketReturn {
     socketRef.current.emit('attack', { attackerId, targetId });
   }, [state.currentGameId]);
 
-  const useHeroPower = useCallback((targetId?: string, position?: number) => {
+  const activateHeroPower = useCallback((targetId?: string, position?: number) => {
     if (!socketRef.current?.connected || !state.currentGameId) {
       setState((prev) => ({ ...prev, error: 'Not in a game' }));
       return;
@@ -226,7 +226,7 @@ export function useSocket(): UseSocketReturn {
     leaveQueue,
     playCard,
     attack,
-    useHeroPower,
+    activateHeroPower,
     endTurn,
     disconnect,
   };

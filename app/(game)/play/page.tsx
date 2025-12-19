@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import MatchmakingModal from '@/components/matchmaking/MatchmakingModal';
 import { useSocket } from '@/hooks/useSocket';
 import { useSession } from '@/lib/auth/client';
-import MatchmakingModal from '@/components/matchmaking/MatchmakingModal';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 interface Deck {
   id: string;
@@ -166,7 +166,7 @@ export default function PlayPage() {
 
             {decks.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-gray-400 mb-4">You don't have any decks yet!</p>
+                <p className="text-gray-400 mb-4">You don&apos;t have any decks yet!</p>
                 <button
                   onClick={() => router.push('/decks')}
                   className="px-6 py-3 bg-space-cyan hover:bg-space-cyan/80 text-space-dark rounded-lg font-bold transition-colors"

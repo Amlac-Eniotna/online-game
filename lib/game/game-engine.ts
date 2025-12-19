@@ -3,20 +3,19 @@
  * Handles game state, turns, and action resolution
  */
 
+import { executeCardEffect } from './card-effects';
 import {
-  GameState,
-  Player,
+  AttackAction,
   Card,
   Creature,
   Equipment,
+  GameState,
+  PlayCardAction,
+  Player,
   Spell,
   Trap,
-  GamePhase,
-  TurnAction,
-  PlayCardAction,
-  AttackAction,
+  TurnAction
 } from './game-types';
-import { executeCardEffect } from './card-effects';
 
 export class GameEngine {
   private state: GameState;
@@ -194,7 +193,7 @@ export class GameEngine {
     const player = this.getCurrentPlayer();
 
     // Find empty slot or use specified position
-    let slot = position !== undefined ? position : player.board.findIndex(c => c === null);
+    const slot = position !== undefined ? position : player.board.findIndex(c => c === null);
 
     if (slot === -1 || slot >= 5) {
       return { success: false, message: 'Board is full (max 5 creatures)' };
@@ -243,7 +242,7 @@ export class GameEngine {
       target = 'hero';
     } else if (targetId) {
       // Find creature on board
-      target = this.findCreatureById(targetId);
+      target = this.findCreatureById(targetId) ?? undefined;
     }
 
     // Execute spell effect

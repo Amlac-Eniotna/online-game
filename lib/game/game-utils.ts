@@ -2,8 +2,8 @@
  * Utility functions for game initialization and helpers
  */
 
-import { GameState, Player, Card, Creature, Hero } from './game-types';
 import { CARDS } from './cards-data';
+import { Card, Creature, GameState, Hero, Player } from './game-types';
 import { HEROES } from './heroes-data';
 
 /**
@@ -126,7 +126,9 @@ export function cloneCard(card: Card): Card {
  * Get card by name from the card pool
  */
 export function getCardByName(name: string): Card | undefined {
-  return CARDS.find(c => c.name === name);
+  const card = CARDS.find(c => c.name === name);
+  if (!card) return undefined;
+  return { ...card, id: `${card.name}-template` } as Card;
 }
 
 /**

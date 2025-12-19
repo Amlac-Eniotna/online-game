@@ -1,16 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
-import { PhaserGame, IRefPhaserGame } from '@/components/game/PhaserGame';
 import { EventBus } from '@/components/game/EventBus';
+import { IRefPhaserGame, PhaserGame } from '@/components/game/PhaserGame';
 import { useSocket } from '@/hooks/useSocket';
-import type { GameState } from '@/lib/game/game-types';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 
 export default function GamePage() {
   const params = useParams();
   const router = useRouter();
-  const { gameState, playCard, attack, useHeroPower, endTurn, disconnect } = useSocket();
+  const { gameState, playCard, attack, activateHeroPower, endTurn, disconnect } = useSocket();
   const phaserRef = useRef<IRefPhaserGame | null>(null);
   const [currentScene, setCurrentScene] = useState<Phaser.Scene | null>(null);
   const [showVictory, setShowVictory] = useState(false);
@@ -45,7 +44,7 @@ export default function GamePage() {
     };
 
     const handleUsePower = (data: { targetId?: string; position?: number }) => {
-      useHeroPower(data.targetId, data.position);
+      activateHeroPower(data.targetId, data.position);
     };
 
     const handleEndTurn = () => {
@@ -63,7 +62,7 @@ export default function GamePage() {
       EventBus.removeListener('use-power', handleUsePower);
       EventBus.removeListener('end-turn', handleEndTurn);
     };
-  }, [playCard, attack, useHeroPower, endTurn]);
+  }, [playCard, attack, activateHeroPower, endTurn]);
 
   const handleCurrentActiveScene = (scene: Phaser.Scene) => {
     setCurrentScene(scene);

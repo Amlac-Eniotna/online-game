@@ -1,6 +1,6 @@
-import { EventBus } from '../EventBus';
+import type { Card, Creature, GameState } from '@/lib/game/game-types';
 import { Scene } from 'phaser';
-import type { GameState, Creature, Card } from '@/lib/game/game-types';
+import { EventBus } from '../EventBus';
 
 export class GameScene extends Scene {
   private playerBoard!: Phaser.GameObjects.Container;
@@ -411,7 +411,7 @@ export class GameScene extends Scene {
     return container;
   }
 
-  private updateBoardCreatures(playerBoard: Creature[], opponentBoard: Creature[]) {
+  private updateBoardCreatures(playerBoard: (Creature | null)[], opponentBoard: (Creature | null)[]) {
     // Clear existing creatures
     this.boardCreatures.forEach((creature) => creature.destroy());
     this.boardCreatures.clear();
@@ -422,7 +422,7 @@ export class GameScene extends Scene {
     const cardHeight = 140;
     const gap = 10;
 
-    playerBoard.forEach((creature, index) => {
+    playerBoard.filter((c): c is Creature => c !== null).forEach((creature, index) => {
       const x = width / 2 - (5 * cardWidth + 4 * gap) / 2 + index * (cardWidth + gap) + cardWidth / 2;
       const y = height * 0.75;
       const creatureContainer = this.createBoardCreature(creature, x, y, cardWidth, cardHeight, false);
@@ -430,7 +430,7 @@ export class GameScene extends Scene {
     });
 
     // Create opponent creatures
-    opponentBoard.forEach((creature, index) => {
+    opponentBoard.filter((c): c is Creature => c !== null).forEach((creature, index) => {
       const x = width / 2 - (5 * cardWidth + 4 * gap) / 2 + index * (cardWidth + gap) + cardWidth / 2;
       const y = height * 0.25;
       const creatureContainer = this.createBoardCreature(creature, x, y, cardWidth, cardHeight, true);

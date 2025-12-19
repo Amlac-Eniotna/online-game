@@ -1,11 +1,11 @@
 "use client";
 
-import { useState, useEffect } from 'react';
-import HeroSelector from '@/components/heroes/HeroSelector';
 import Card from '@/components/cards/Card';
 import CardFilters from '@/components/cards/CardFilters';
-import { CardType, CardRarity } from '@prisma/client';
+import HeroSelector from '@/components/heroes/HeroSelector';
 import type { Card as CardData } from '@/lib/game/game-types';
+import { CardRarity, CardType } from '@prisma/client';
+import { useEffect, useState } from 'react';
 
 interface CollectionCard extends CardData {
   quantity: number;
@@ -22,6 +22,12 @@ interface Deck {
   name: string;
   heroId: string;
   cards: DeckCard[];
+  totalCards: number;
+  hero: {
+    name: string;
+    class: string;
+  };
+  createdAt: string;
 }
 
 export default function DeckBuilderPage() {
