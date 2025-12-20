@@ -7,6 +7,10 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '2mb',
     },
   },
+  // Set the correct Turbopack root to avoid using parent directory config
+  turbopack: {
+    root: process.cwd(),
+  },
 };
 
 export default nextConfig;
