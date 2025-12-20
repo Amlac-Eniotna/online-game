@@ -67,6 +67,7 @@ model User {
   email         String    @unique
   emailVerified Boolean   @default(false)
   image         String?
+  username      String?   @unique  // Required by better-auth
 
   // Progression - 5000 starter coins for new players!
   coins         Int       @default(5000)

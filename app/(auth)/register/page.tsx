@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { signUp } from "@/lib/auth/client";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -23,6 +23,7 @@ export default function RegisterPage() {
         email,
         password,
         name: username,
+        username: username,
         callbackURL: "/play",
       });
       router.push("/play");
