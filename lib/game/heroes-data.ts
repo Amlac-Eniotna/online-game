@@ -15,6 +15,7 @@ export interface HeroDefinition {
   baseHealth: number;
   playstyle: string;
   signatureMechanic: string;
+  image: string;
 }
 
 export const HEROES: HeroDefinition[] = [
@@ -30,6 +31,7 @@ export const HEROES: HeroDefinition[] = [
     baseHealth: 20,
     playstyle: 'Fast, aggressive, swarm tactics',
     signatureMechanic: 'First Strike - His creatures attack before opponent\'s creatures',
+    image: '/heroes/jetpack-junkie.png',
   },
   {
     id: 'rocket-maniac',
@@ -43,6 +45,7 @@ export const HEROES: HeroDefinition[] = [
     baseHealth: 20,
     playstyle: 'Area damage, board control',
     signatureMechanic: 'Splash Damage - His damage spells hit adjacent targets',
+    image: '/heroes/rocket-maniac.png',
   },
   {
     id: 'plasma-freak',
@@ -56,6 +59,7 @@ export const HEROES: HeroDefinition[] = [
     baseHealth: 20,
     playstyle: 'Damage over time, chaos effects',
     signatureMechanic: 'Burn - Creatures damaged by his cards take continuous damage',
+    image: '/heroes/plasma-freak.png',
   },
   {
     id: 'mine-layer',
@@ -69,6 +73,7 @@ export const HEROES: HeroDefinition[] = [
     baseHealth: 20,
     playstyle: 'Reactive, trap-based control',
     signatureMechanic: 'Traps - Cards that activate on opponent\'s turn',
+    image: '/heroes/mine-layer.png',
   },
   {
     id: 'tank-brute',
@@ -82,6 +87,7 @@ export const HEROES: HeroDefinition[] = [
     baseHealth: 20,
     playstyle: 'High HP creatures, sustain',
     signatureMechanic: 'Ramp Up - His creatures gain +1 attack each turn they survive',
+    image: '/heroes/tank-brute.png',
   },
   {
     id: 'drone-master',
@@ -95,6 +101,7 @@ export const HEROES: HeroDefinition[] = [
     baseHealth: 20,
     playstyle: 'Build structures, summon tokens',
     signatureMechanic: 'Constructs - Permanent creatures that provide passive effects',
+    image: '/heroes/drone-master.png',
   },
   {
     id: 'bio-healer',
@@ -108,6 +115,7 @@ export const HEROES: HeroDefinition[] = [
     baseHealth: 20,
     playstyle: 'Sustain, buff allies',
     signatureMechanic: 'Regeneration - Can heal creatures and hero',
+    image: '/heroes/bio-healer.png',
   },
   {
     id: 'sharpshooter',
@@ -121,6 +129,7 @@ export const HEROES: HeroDefinition[] = [
     baseHealth: 20,
     playstyle: 'Single-target removal, control',
     signatureMechanic: 'Execute - Deals double damage to damaged creatures',
+    image: '/heroes/sharpshooter.png',
   },
   {
     id: 'shapeshifter',
@@ -134,6 +143,7 @@ export const HEROES: HeroDefinition[] = [
     baseHealth: 20,
     playstyle: 'Copy effects, hand disruption',
     signatureMechanic: 'Steal/Copy - Can use opponent\'s cards',
+    image: '/heroes/shapeshifter.png',
   },
 ];
 

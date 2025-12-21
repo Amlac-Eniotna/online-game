@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from 'react';
 import { HEROES } from '@/lib/game/heroes-data';
+import Image from 'next/image';
+import { useState } from 'react';
 
 interface HeroCardProps {
   hero: typeof HEROES[0];
@@ -29,17 +30,13 @@ function HeroCard({ hero, isSelected, onClick }: HeroCardProps) {
 
       {/* Hero Portrait */}
       <div className="relative p-6">
-        <div className="w-full aspect-square bg-gradient-to-br from-space-dark to-space-purple/20 rounded-lg mb-4 flex items-center justify-center text-6xl">
-          {/* Placeholder emoji based on class */}
-          {hero.class === 'Assault' && '⚡'}
-          {hero.class === 'Demolition' && '🚀'}
-          {hero.class === 'Pyromaniac' && '🔥'}
-          {hero.class === 'Trapper' && '💣'}
-          {hero.class === 'Heavy' && '🛡️'}
-          {hero.class === 'Engineer' && '🤖'}
-          {hero.class === 'Medic' && '💉'}
-          {hero.class === 'Sniper' && '🎯'}
-          {hero.class === 'Infiltrator' && '👽'}
+        <div className="relative w-full aspect-square bg-gradient-to-br from-space-dark to-space-purple/20 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+          <Image
+            src={hero.image}
+            alt={hero.name}
+            fill
+            className="object-cover"
+          />
         </div>
 
         {/* Hero Info */}
