@@ -17,6 +17,9 @@ export interface SocketState {
 
 export interface UseSocketReturn extends SocketState {
   joinQueue: (userId: string, username: string, heroId: string, deck: any[]) => void;
+
+  joinAiGame: (userId: string, username: string, heroId: string, deck: any[], difficulty: string) => void;
+  joinGame: (gameId: string, userId: string) => void;
   leaveQueue: () => void;
   playCard: (cardId: string, position?: number, targetId?: string) => void;
   attack: (attackerId: string, targetId: string) => void;
@@ -162,6 +165,32 @@ export function useSocket(): UseSocketReturn {
     socketRef.current.emit('join-queue', { userId, username, heroId, deck });
   }, []);
 
+  const joinAiGame = useCallback((userId: string, username: string, heroId: string, deck: any[], difficulty: string) => {
+    if (!socketRef.current?.connected) {
+      setState((prev) => ({ ...prev, error: 'Not connected to server' }));
+      return;
+    }
+
+    console.log('[Socket] Joining AI Game...', { userId, username, heroId, difficulty });
+    socketRef.current.emit('join-ai-game', { userId, username, heroId, deck, difficulty });
+
+  }, []);
+
+  const joinGame = useCallback((gameId: string, userId: string) => {
+    if (!socketRef.current?.connected) {
+      // Retry if not connected yet
+      setTimeout(() => {
+        if (socketRef.current?.connected) {
+             console.log('[Socket] Rejoining game...', { gameId });
+             socketRef.current.emit('rejoin-game', { gameId, userId });
+        }
+      }, 500);
+      return;
+    }
+    console.log('[Socket] Rejoining game...', { gameId });
+    socketRef.current.emit('rejoin-game', { gameId, userId });
+  }, []);
+
   const leaveQueue = useCallback(() => {
     if (!socketRef.current?.connected) return;
 
@@ -223,7 +252,10 @@ export function useSocket(): UseSocketReturn {
   return {
     ...state,
     joinQueue,
+    joinAiGame,
+    joinGame,
     leaveQueue,
+
     playCard,
     attack,
     activateHeroPower,

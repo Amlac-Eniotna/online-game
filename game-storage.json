@@ -1,0 +1,678 @@
+[
+  {
+    "gameId": "game-1766443176457",
+    "gameState": {
+      "gameId": "game-1766443176457",
+      "currentTurn": 1,
+      "currentPlayer": "player1",
+      "phase": "DRAW",
+      "player1": {
+        "id": "9uia448CngPl5WtkKjtPzz4QXSmRVrfM",
+        "username": "GudulePoilu",
+        "heroId": "jetpack-junkie",
+        "hero": {
+          "id": "jetpack-junkie",
+          "name": "Jetpack Junkie",
+          "class": "Assault",
+          "description": "A hyperactive alien with an oversized jetpack. Fast, aggressive, and always in motion.",
+          "powerName": "Boost Thrusters",
+          "powerEffect": "Give a creature +2 attack this turn",
+          "powerCost": 2,
+          "powerCode": "BOOST_THRUSTERS",
+          "baseHealth": 20,
+          "playstyle": "Fast, aggressive, swarm tactics",
+          "signatureMechanic": "First Strike - His creatures attack before opponent's creatures",
+          "image": "/heroes/jetpack-junkie.png"
+        },
+        "health": 20,
+        "maxHealth": 20,
+        "hand": [
+          {
+            "name": "Shield Drone",
+            "type": "CREATURE",
+            "rarity": "COMMON",
+            "cost": 1,
+            "attack": 0,
+            "health": 3,
+            "effect": "Taunt",
+            "effectCode": "TAUNT",
+            "flavorText": "Standard issue. Effective.",
+            "set": "base",
+            "id": "Shield Drone-1766443176457-8"
+          },
+          {
+            "name": "Cosmic Flux",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 2,
+            "effect": "Draw 2 cards",
+            "effectCode": "DRAW_2",
+            "flavorText": "Knowledge flows through the cosmos.",
+            "set": "base",
+            "id": "Cosmic Flux-1766443176457-3"
+          },
+          {
+            "name": "Emergency Repairs",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 2,
+            "effect": "Restore 5 health to your hero or a creature",
+            "effectCode": "HEAL_5",
+            "flavorText": "Patch it up, move it out.",
+            "set": "base",
+            "id": "Emergency Repairs-1766443176457-2"
+          }
+        ],
+        "deck": [
+          {
+            "name": "Combat Stims",
+            "type": "EQUIPMENT",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "+1/+1",
+            "effectCode": "COMBAT_STIMS",
+            "heroEffects": {
+              "bio-healer": "+2/+2 and regenerate 1 HP per turn",
+              "tank-brute": "+1/+3"
+            },
+            "flavorText": "Instant boost.",
+            "set": "base",
+            "id": "Combat Stims-1766443176457-9"
+          },
+          {
+            "name": "Space Rookie",
+            "type": "CREATURE",
+            "rarity": "COMMON",
+            "cost": 2,
+            "attack": 2,
+            "health": 2,
+            "effectCode": "NONE",
+            "flavorText": "Fresh out of the academy and eager to prove themselves.",
+            "set": "base",
+            "imageUrl": "/cards/space-rookie.png",
+            "id": "Space Rookie-1766443176457-6"
+          },
+          {
+            "name": "Jetpack Booster",
+            "type": "EQUIPMENT",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "+1/+1. Equipped creature has Evasion",
+            "effectCode": "EQUIP_1_1_EVASION",
+            "flavorText": "Fly over obstacles.",
+            "set": "base",
+            "id": "Jetpack Booster-1766443176457-5"
+          },
+          {
+            "name": "Disruption Field",
+            "type": "EQUIPMENT",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "+1/+2",
+            "effectCode": "EQUIP_1_2",
+            "flavorText": "Basic protection.",
+            "set": "base",
+            "id": "Disruption Field-1766443176457-7"
+          },
+          {
+            "name": "Jetpack Booster",
+            "type": "EQUIPMENT",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "+1/+1. Equipped creature has Evasion",
+            "effectCode": "EQUIP_1_1_EVASION",
+            "flavorText": "Fly over obstacles.",
+            "set": "base",
+            "id": "Jetpack Booster-1766443176457-0"
+          },
+          {
+            "name": "Void Crawler",
+            "type": "CREATURE",
+            "rarity": "COMMON",
+            "cost": 4,
+            "attack": 4,
+            "health": 3,
+            "effectCode": "NONE",
+            "flavorText": "It hungers for the light of stars.",
+            "set": "base",
+            "imageUrl": "/cards/void-crawler.png",
+            "id": "Void Crawler-1766443176457-1"
+          },
+          {
+            "name": "Jetpack Booster",
+            "type": "EQUIPMENT",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "+1/+1. Equipped creature has Evasion",
+            "effectCode": "EQUIP_1_1_EVASION",
+            "flavorText": "Fly over obstacles.",
+            "set": "base",
+            "id": "Jetpack Booster-1766443176457-4"
+          }
+        ],
+        "board": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "graveyard": [],
+        "traps": [],
+        "cardsPlayedThisTurn": 0,
+        "hasDrawn": false,
+        "powerUsedThisTurn": false
+      },
+      "player2": {
+        "id": "ai-opponent",
+        "username": "Training Dummy",
+        "heroId": "tank-brute",
+        "hero": {
+          "id": "tank-brute",
+          "name": "Tank Brute",
+          "class": "Heavy",
+          "description": "A massive four-armed alien with a minigun.",
+          "powerName": "Fortify",
+          "powerEffect": "Give a creature +0/+3 health",
+          "powerCost": 2,
+          "powerCode": "FORTIFY_POWER",
+          "baseHealth": 20,
+          "playstyle": "High HP creatures, sustain",
+          "signatureMechanic": "Ramp Up - His creatures gain +1 attack each turn they survive",
+          "image": "/heroes/tank-brute.png"
+        },
+        "health": 20,
+        "maxHealth": 20,
+        "hand": [
+          {
+            "name": "Jetpack Booster",
+            "type": "EQUIPMENT",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "+1/+1. Equipped creature has Evasion",
+            "effectCode": "EQUIP_1_1_EVASION",
+            "flavorText": "Fly over obstacles.",
+            "set": "base",
+            "id": "Jetpack Booster-1766443176457-6"
+          },
+          {
+            "name": "Adrenaline Surge",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "Give a creature +2/+2",
+            "effectCode": "BUFF_2_2",
+            "flavorText": "Push beyond limits.",
+            "set": "base",
+            "id": "Adrenaline Surge-1766443176457-9"
+          },
+          {
+            "name": "Quantum Mimic",
+            "type": "CREATURE",
+            "rarity": "COMMON",
+            "cost": 2,
+            "attack": 1,
+            "health": 2,
+            "effect": "When summoned: Copy stats of target creature",
+            "effectCode": "COPY_STATS",
+            "flavorText": "Identity is flexible in quantum space.",
+            "set": "base",
+            "id": "Quantum Mimic-1766443176457-2"
+          }
+        ],
+        "deck": [
+          {
+            "name": "Combat Stims",
+            "type": "EQUIPMENT",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "+1/+1",
+            "effectCode": "COMBAT_STIMS",
+            "heroEffects": {
+              "bio-healer": "+2/+2 and regenerate 1 HP per turn",
+              "tank-brute": "+1/+3"
+            },
+            "flavorText": "Instant boost.",
+            "set": "base",
+            "id": "Combat Stims-1766443176457-0"
+          },
+          {
+            "name": "Void Crawler",
+            "type": "CREATURE",
+            "rarity": "COMMON",
+            "cost": 4,
+            "attack": 4,
+            "health": 3,
+            "effectCode": "NONE",
+            "flavorText": "It hungers for the light of stars.",
+            "set": "base",
+            "imageUrl": "/cards/void-crawler.png",
+            "id": "Void Crawler-1766443176457-8"
+          },
+          {
+            "name": "Quantum Mimic",
+            "type": "CREATURE",
+            "rarity": "COMMON",
+            "cost": 2,
+            "attack": 1,
+            "health": 2,
+            "effect": "When summoned: Copy stats of target creature",
+            "effectCode": "COPY_STATS",
+            "flavorText": "Identity is flexible in quantum space.",
+            "set": "base",
+            "id": "Quantum Mimic-1766443176457-1"
+          },
+          {
+            "name": "Shield Generator",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "Give a creature +0/+4 health",
+            "effectCode": "BUFF_HEALTH_4",
+            "flavorText": "Deploy shields!",
+            "set": "base",
+            "id": "Shield Generator-1766443176457-3"
+          },
+          {
+            "name": "Rocket Fuel",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "Give a creature +2/+0 this turn",
+            "effectCode": "ROCKET_FUEL",
+            "heroEffects": {
+              "jetpack-junkie": "Give all your creatures +1/+0 this turn",
+              "rocket-maniac": "Deal 3 damage to target creature"
+            },
+            "flavorText": "Highly volatile. Highly effective.",
+            "set": "base",
+            "id": "Rocket Fuel-1766443176457-5"
+          },
+          {
+            "name": "Quantum Mimic",
+            "type": "CREATURE",
+            "rarity": "COMMON",
+            "cost": 2,
+            "attack": 1,
+            "health": 2,
+            "effect": "When summoned: Copy stats of target creature",
+            "effectCode": "COPY_STATS",
+            "flavorText": "Identity is flexible in quantum space.",
+            "set": "base",
+            "id": "Quantum Mimic-1766443176457-4"
+          },
+          {
+            "name": "Disruption Field",
+            "type": "EQUIPMENT",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "+1/+2",
+            "effectCode": "EQUIP_1_2",
+            "flavorText": "Basic protection.",
+            "set": "base",
+            "id": "Disruption Field-1766443176457-7"
+          }
+        ],
+        "board": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "graveyard": [],
+        "traps": [],
+        "cardsPlayedThisTurn": 0,
+        "hasDrawn": false,
+        "powerUsedThisTurn": false
+      },
+      "winner": null,
+      "turnHistory": []
+    },
+    "player1Socket": "hrVU5fSl6wXHBN3pAAAW",
+    "aiDifficulty": "easy"
+  },
+  {
+    "gameId": "game-1766443308317",
+    "gameState": {
+      "gameId": "game-1766443308317",
+      "currentTurn": 1,
+      "currentPlayer": "player2",
+      "phase": "DRAW",
+      "player1": {
+        "id": "9uia448CngPl5WtkKjtPzz4QXSmRVrfM",
+        "username": "GudulePoilu",
+        "heroId": "jetpack-junkie",
+        "hero": {
+          "id": "jetpack-junkie",
+          "name": "Jetpack Junkie",
+          "class": "Assault",
+          "description": "A hyperactive alien with an oversized jetpack. Fast, aggressive, and always in motion.",
+          "powerName": "Boost Thrusters",
+          "powerEffect": "Give a creature +2 attack this turn",
+          "powerCost": 2,
+          "powerCode": "BOOST_THRUSTERS",
+          "baseHealth": 20,
+          "playstyle": "Fast, aggressive, swarm tactics",
+          "signatureMechanic": "First Strike - His creatures attack before opponent's creatures",
+          "image": "/heroes/jetpack-junkie.png"
+        },
+        "health": 20,
+        "maxHealth": 20,
+        "hand": [
+          {
+            "name": "Disruption Field",
+            "type": "EQUIPMENT",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "+1/+2",
+            "effectCode": "EQUIP_1_2",
+            "flavorText": "Basic protection.",
+            "set": "base",
+            "id": "Disruption Field-1766443308314-8"
+          },
+          {
+            "name": "Void Crawler",
+            "type": "CREATURE",
+            "rarity": "COMMON",
+            "cost": 4,
+            "attack": 4,
+            "health": 3,
+            "effectCode": "NONE",
+            "flavorText": "It hungers for the light of stars.",
+            "set": "base",
+            "imageUrl": "/cards/void-crawler.png",
+            "id": "Void Crawler-1766443308314-1"
+          },
+          {
+            "name": "Cosmic Flux",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 2,
+            "effect": "Draw 2 cards",
+            "effectCode": "DRAW_2",
+            "flavorText": "Knowledge flows through the cosmos.",
+            "set": "base",
+            "id": "Cosmic Flux-1766443308314-5"
+          }
+        ],
+        "deck": [
+          {
+            "name": "Combat Stims",
+            "type": "EQUIPMENT",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "+1/+1",
+            "effectCode": "COMBAT_STIMS",
+            "heroEffects": {
+              "bio-healer": "+2/+2 and regenerate 1 HP per turn",
+              "tank-brute": "+1/+3"
+            },
+            "flavorText": "Instant boost.",
+            "set": "base",
+            "id": "Combat Stims-1766443308314-9"
+          },
+          {
+            "name": "Proximity Mine",
+            "type": "TRAP",
+            "rarity": "COMMON",
+            "cost": 2,
+            "effect": "When opponent plays a creature: Deal 2 damage to it",
+            "effectCode": "TRAP_DAMAGE_ON_SUMMON",
+            "flavorText": "Step carefully.",
+            "set": "base",
+            "imageUrl": "/cards/proximity-mine.png",
+            "id": "Proximity Mine-1766443308314-2"
+          },
+          {
+            "name": "Laser Blast",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "Deal 3 damage to target creature or hero",
+            "effectCode": "DAMAGE_3",
+            "flavorText": "Precision. Lethality. Simplicity.",
+            "set": "base",
+            "imageUrl": "/cards/laser-blast.png",
+            "id": "Laser Blast-1766443308314-3"
+          },
+          {
+            "name": "Laser Blast",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "Deal 3 damage to target creature or hero",
+            "effectCode": "DAMAGE_3",
+            "flavorText": "Precision. Lethality. Simplicity.",
+            "set": "base",
+            "imageUrl": "/cards/laser-blast.png",
+            "id": "Laser Blast-1766443308314-0"
+          },
+          {
+            "name": "Laser Blast",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "Deal 3 damage to target creature or hero",
+            "effectCode": "DAMAGE_3",
+            "flavorText": "Precision. Lethality. Simplicity.",
+            "set": "base",
+            "imageUrl": "/cards/laser-blast.png",
+            "id": "Laser Blast-1766443308314-6"
+          },
+          {
+            "name": "Combat Stims",
+            "type": "EQUIPMENT",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "+1/+1",
+            "effectCode": "COMBAT_STIMS",
+            "heroEffects": {
+              "bio-healer": "+2/+2 and regenerate 1 HP per turn",
+              "tank-brute": "+1/+3"
+            },
+            "flavorText": "Instant boost.",
+            "set": "base",
+            "id": "Combat Stims-1766443308314-7"
+          },
+          {
+            "name": "Emergency Repairs",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 2,
+            "effect": "Restore 5 health to your hero or a creature",
+            "effectCode": "HEAL_5",
+            "flavorText": "Patch it up, move it out.",
+            "set": "base",
+            "id": "Emergency Repairs-1766443308314-4"
+          }
+        ],
+        "board": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "graveyard": [],
+        "traps": [],
+        "cardsPlayedThisTurn": 0,
+        "hasDrawn": false,
+        "powerUsedThisTurn": false
+      },
+      "player2": {
+        "id": "ai-opponent",
+        "username": "Training Dummy",
+        "heroId": "tank-brute",
+        "hero": {
+          "id": "tank-brute",
+          "name": "Tank Brute",
+          "class": "Heavy",
+          "description": "A massive four-armed alien with a minigun.",
+          "powerName": "Fortify",
+          "powerEffect": "Give a creature +0/+3 health",
+          "powerCost": 2,
+          "powerCode": "FORTIFY_POWER",
+          "baseHealth": 20,
+          "playstyle": "High HP creatures, sustain",
+          "signatureMechanic": "Ramp Up - His creatures gain +1 attack each turn they survive",
+          "image": "/heroes/tank-brute.png"
+        },
+        "health": 20,
+        "maxHealth": 20,
+        "hand": [
+          {
+            "name": "Combat Stims",
+            "type": "EQUIPMENT",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "+1/+1",
+            "effectCode": "COMBAT_STIMS",
+            "heroEffects": {
+              "bio-healer": "+2/+2 and regenerate 1 HP per turn",
+              "tank-brute": "+1/+3"
+            },
+            "flavorText": "Instant boost.",
+            "set": "base",
+            "id": "Combat Stims-1766443308314-7"
+          },
+          {
+            "name": "Space Rookie",
+            "type": "CREATURE",
+            "rarity": "COMMON",
+            "cost": 2,
+            "attack": 2,
+            "health": 2,
+            "effectCode": "NONE",
+            "flavorText": "Fresh out of the academy and eager to prove themselves.",
+            "set": "base",
+            "imageUrl": "/cards/space-rookie.png",
+            "id": "Space Rookie-1766443308314-6"
+          },
+          {
+            "name": "Emergency Repairs",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 2,
+            "effect": "Restore 5 health to your hero or a creature",
+            "effectCode": "HEAL_5",
+            "flavorText": "Patch it up, move it out.",
+            "set": "base",
+            "id": "Emergency Repairs-1766443308314-1"
+          }
+        ],
+        "deck": [
+          {
+            "name": "Rocket Fuel",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "Give a creature +2/+0 this turn",
+            "effectCode": "ROCKET_FUEL",
+            "heroEffects": {
+              "jetpack-junkie": "Give all your creatures +1/+0 this turn",
+              "rocket-maniac": "Deal 3 damage to target creature"
+            },
+            "flavorText": "Highly volatile. Highly effective.",
+            "set": "base",
+            "id": "Rocket Fuel-1766443308314-5"
+          },
+          {
+            "name": "Void Crawler",
+            "type": "CREATURE",
+            "rarity": "COMMON",
+            "cost": 4,
+            "attack": 4,
+            "health": 3,
+            "effectCode": "NONE",
+            "flavorText": "It hungers for the light of stars.",
+            "set": "base",
+            "imageUrl": "/cards/void-crawler.png",
+            "id": "Void Crawler-1766443308314-8"
+          },
+          {
+            "name": "Shield Drone",
+            "type": "CREATURE",
+            "rarity": "COMMON",
+            "cost": 1,
+            "attack": 0,
+            "health": 3,
+            "effect": "Taunt",
+            "effectCode": "TAUNT",
+            "flavorText": "Standard issue. Effective.",
+            "set": "base",
+            "id": "Shield Drone-1766443308314-0"
+          },
+          {
+            "name": "Thermal Charge",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 2,
+            "effect": "Deal 2 damage",
+            "effectCode": "THERMAL_CHARGE",
+            "heroEffects": {
+              "plasma-freak": "Deal 2 damage. Target burns for 1 damage per turn.",
+              "mine-layer": "Set a mine that deals 3 damage"
+            },
+            "flavorText": "Hot stuff.",
+            "set": "base",
+            "id": "Thermal Charge-1766443308314-2"
+          },
+          {
+            "name": "Disruption Field",
+            "type": "EQUIPMENT",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "+1/+2",
+            "effectCode": "EQUIP_1_2",
+            "flavorText": "Basic protection.",
+            "set": "base",
+            "id": "Disruption Field-1766443308314-4"
+          },
+          {
+            "name": "Rocket Fuel",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 1,
+            "effect": "Give a creature +2/+0 this turn",
+            "effectCode": "ROCKET_FUEL",
+            "heroEffects": {
+              "jetpack-junkie": "Give all your creatures +1/+0 this turn",
+              "rocket-maniac": "Deal 3 damage to target creature"
+            },
+            "flavorText": "Highly volatile. Highly effective.",
+            "set": "base",
+            "id": "Rocket Fuel-1766443308314-3"
+          },
+          {
+            "name": "Cosmic Flux",
+            "type": "SPELL",
+            "rarity": "COMMON",
+            "cost": 2,
+            "effect": "Draw 2 cards",
+            "effectCode": "DRAW_2",
+            "flavorText": "Knowledge flows through the cosmos.",
+            "set": "base",
+            "id": "Cosmic Flux-1766443308314-9"
+          }
+        ],
+        "board": [
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "graveyard": [],
+        "traps": [],
+        "cardsPlayedThisTurn": 0,
+        "hasDrawn": false,
+        "powerUsedThisTurn": false
+      },
+      "winner": null,
+      "turnHistory": []
+    },
+    "player1Socket": "Gj9XS6pgWi6WItDQAAAN",
+    "aiDifficulty": "easy"
+  }
+]

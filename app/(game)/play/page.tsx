@@ -26,7 +26,9 @@ export default function PlayPage() {
   const [selectedDeck, setSelectedDeck] = useState<Deck | null>(null);
   const [loading, setLoading] = useState(true);
   const [showDeckSelect, setShowDeckSelect] = useState(false);
-  const [gameMode, setGameMode] = useState<'quick' | 'ranked'>('quick');
+
+  const [showAiSelect, setShowAiSelect] = useState(false);
+  const [gameMode, setGameMode] = useState<'quick' | 'ranked' | 'ai'>('quick');
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -65,13 +67,16 @@ export default function PlayPage() {
     }
   };
 
-  const handlePlayClick = (mode: 'quick' | 'ranked') => {
+  const handlePlayClick = (mode: 'quick' | 'ranked' | 'ai') => {
     setGameMode(mode);
     if (decks.length === 0) {
       alert('You need to create a deck first! Go to Deck Builder.');
       router.push('/decks');
       return;
+      return;
     }
+    // For AI, show deck select then AI difficulty? Or Deck first? 
+    // Flow: Mode -> Deck -> Difficulty (if AI) -> Matchmaking
     setShowDeckSelect(true);
   };
 
@@ -87,11 +92,27 @@ export default function PlayPage() {
       return;
     }
 
+    if (gameMode === 'ai') {
+        setShowDeckSelect(false);
+        setShowAiSelect(true);
+        return;
+    }
+
     const userId = session.user.id;
     const username = session.user.name || session.user.email || 'Player';
 
     socket.joinQueue(userId, username, selectedDeck.heroId, []);
     setShowDeckSelect(false);
+  };
+
+  const handleStartAiGame = (difficulty: string) => {
+    if (!selectedDeck || !session?.user) return;
+
+    const userId = session.user.id;
+    const username = session.user.name || session.user.email || 'Player';
+
+    socket.joinAiGame(userId, username, selectedDeck.heroId, [], difficulty);
+    setShowAiSelect(false);
   };
 
   const handleCancelMatchmaking = () => {
@@ -141,7 +162,7 @@ export default function PlayPage() {
       </div>
 
       {/* Game Modes */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl">
         <GameModeCard
           title="Quick Match"
           description="Jump into a casual game"
@@ -149,11 +170,19 @@ export default function PlayPage() {
           onClick={() => handlePlayClick('quick')}
           disabled={!socket.connected}
         />
+
         <GameModeCard
           title="Ranked"
           description="Climb the ladder"
           icon="🏆"
           onClick={() => handlePlayClick('ranked')}
+          disabled={!socket.connected}
+        />
+        <GameModeCard
+          title="Practice vs AI"
+          description="Train against bots"
+          icon="🤖"
+          onClick={() => handlePlayClick('ai')}
           disabled={!socket.connected}
         />
       </div>
@@ -217,6 +246,48 @@ export default function PlayPage() {
                 </div>
               </>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* AI Difficulty Modal */}
+      {showAiSelect && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-40 flex items-center justify-center p-4">
+          <div className="bg-gradient-to-br from-space-dark to-space-purple/20 border-2 border-space-purple/50 rounded-lg p-8 max-w-md w-full text-center">
+            <h2 className="text-3xl font-bold mb-6">Select AI Difficulty</h2>
+            
+            <div className="space-y-4">
+                <button 
+                  onClick={() => handleStartAiGame('easy')}
+                  className="w-full p-4 bg-green-900/40 border border-green-500/50 hover:bg-green-800/40 rounded-lg transition-colors flex flex-col items-center"
+                >
+                    <span className="text-xl font-bold text-green-400">Easy</span>
+                    <span className="text-sm text-gray-400">Random moves, -90% Rewards</span>
+                </button>
+
+                 <button 
+                  onClick={() => handleStartAiGame('medium')}
+                  className="w-full p-4 bg-yellow-900/40 border border-yellow-500/50 hover:bg-yellow-800/40 rounded-lg transition-colors flex flex-col items-center"
+                >
+                    <span className="text-xl font-bold text-yellow-400">Medium</span>
+                    <span className="text-sm text-gray-400">Balanced, -70% Rewards</span>
+                </button>
+
+                 <button 
+                  onClick={() => handleStartAiGame('hard')}
+                  className="w-full p-4 bg-red-900/40 border border-red-500/50 hover:bg-red-800/40 rounded-lg transition-colors flex flex-col items-center"
+                >
+                    <span className="text-xl font-bold text-red-500">Hard</span>
+                    <span className="text-sm text-gray-400">Challenging, -50% Rewards</span>
+                </button>
+            </div>
+
+            <button
+                onClick={() => setShowAiSelect(false)}
+                className="mt-6 text-gray-400 hover:text-white underline"
+            >
+                Cancel
+            </button>
           </div>
         </div>
       )}

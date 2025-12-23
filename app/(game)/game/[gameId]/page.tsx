@@ -1,21 +1,40 @@
 "use client";
 
 import { EventBus } from '@/components/game/EventBus';
-import { IRefPhaserGame, PhaserGame } from '@/components/game/PhaserGame';
+import { IRefPhaserGame } from '@/components/game/PhaserGame';
 import { useSocket } from '@/hooks/useSocket';
+import { useSession } from '@/lib/auth/client';
+import dynamic from 'next/dynamic';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
+const PhaserGame = dynamic(() => import('@/components/game/PhaserGame').then(m => m.PhaserGame), {
+  ssr: false,
+});
+
 export default function GamePage() {
   const params = useParams();
+
   const router = useRouter();
-  const { gameState, playCard, attack, activateHeroPower, endTurn, disconnect } = useSocket();
+  const { data: session } = useSession();
+  const { gameState, playCard, attack, activateHeroPower, endTurn, disconnect, joinGame, connected, error } = useSocket();
   const phaserRef = useRef<IRefPhaserGame | null>(null);
   const [currentScene, setCurrentScene] = useState<Phaser.Scene | null>(null);
   const [showVictory, setShowVictory] = useState(false);
   const [winner, setWinner] = useState<string | null>(null);
 
   const gameId = params.gameId as string;
+
+  // Rejoin game on load/connect
+  useEffect(() => {
+    // Only join if we are connected, have a gameId, user is logged in, and NO gameState yet
+    if (connected && gameId && session?.user && !gameState) {
+        // Prevent multiple calls if already joining? 
+        // useSocket handles emits, but let's be safe
+        joinGame(gameId, session.user.id);
+    }
+  }, [connected, gameId, session, gameState]); // Removed joinGame from deps to avoid re-triggering if function ref changes
+
 
   // Handle game over
   useEffect(() => {
@@ -170,13 +189,37 @@ export default function GamePage() {
       )}
 
       {/* Loading Overlay */}
-      {!gameState && !showVictory && (
+      {!gameState && !showVictory && !error && (
         <div className="absolute inset-0 bg-black/90 backdrop-blur-md z-40 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-space-cyan mx-auto mb-4"></div>
             <p className="text-gray-400 text-lg">Initializing battle...</p>
             <p className="text-gray-500 text-sm mt-2">Game ID: {gameId}</p>
           </div>
+        </div>
+      )}
+
+      {/* Error Screen */}
+      {error && !gameState && (
+        <div className="absolute inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center">
+            <div className="text-center p-8 bg-red-900/20 border border-red-500/50 rounded-lg max-w-md">
+                <h2 className="text-2xl font-bold text-red-500 mb-4">Connection Error</h2>
+                <p className="text-gray-300 mb-6">{error}</p>
+                <div className="flex gap-4 justify-center">
+                     <button
+                        onClick={handleExitGame}
+                        className="px-6 py-3 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-bold transition-colors"
+                    >
+                        Back to Menu
+                    </button>
+                    <button
+                        onClick={() => window.location.reload()}
+                        className="px-6 py-3 bg-space-cyan hover:bg-space-cyan/80 text-space-dark rounded-lg font-bold transition-colors"
+                    >
+                        Retry
+                    </button>
+                </div>
+            </div>
         </div>
       )}
     </div>

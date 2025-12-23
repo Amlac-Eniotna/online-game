@@ -8,7 +8,7 @@
  * - 3 Legendary
  */
 
-import { CardType, CardRarity } from '@prisma/client';
+import { CardRarity, CardType } from '@prisma/client';
 
 export interface CardDefinition {
   name: string;
@@ -22,6 +22,7 @@ export interface CardDefinition {
   heroEffects?: Record<string, string>; // Hero-specific effects
   flavorText?: string;
   set: string;
+  imageUrl?: string;
 }
 
 export const CARDS: CardDefinition[] = [
@@ -38,6 +39,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'NONE',
     flavorText: 'Fresh out of the academy and eager to prove themselves.',
     set: 'base',
+    imageUrl: '/cards/space-rookie.png',
   },
   {
     name: 'Asteroid Miner',
@@ -50,6 +52,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'DRAW_ON_SUMMON',
     flavorText: 'Always finds something valuable in the debris.',
     set: 'base',
+    imageUrl: '/cards/asteroid-miner.png',
   },
   {
     name: 'Cosmic Scout',
@@ -62,6 +65,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'FIRST_STRIKE',
     flavorText: 'Fast and deadly.',
     set: 'base',
+    imageUrl: '/cards/cosmic-scout.png',
   },
   {
     name: 'Nebula Guardian',
@@ -74,6 +78,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'TAUNT',
     flavorText: 'An immovable object in the void.',
     set: 'base',
+    imageUrl: '/cards/nebula-guardian.png',
   },
   {
     name: 'Void Crawler',
@@ -85,6 +90,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'NONE',
     flavorText: 'It hungers for the light of stars.',
     set: 'base',
+    imageUrl: '/cards/void-crawler.png',
   },
   {
     name: 'Mercenary Veteran',
@@ -97,6 +103,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'SPELL_IMMUNE',
     flavorText: 'Seen it all, survived it all.',
     set: 'base',
+    imageUrl: '/cards/mercenary-veteran.png',
   },
   {
     name: 'Plasma Elemental',
@@ -109,6 +116,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'AOE_ON_ATTACK',
     flavorText: 'Pure energy given form.',
     set: 'base',
+    imageUrl: '/cards/plasma-elemental.png',
   },
   {
     name: 'Orbital Striker',
@@ -121,6 +129,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'FIRST_STRIKE',
     flavorText: 'Strikes from orbit. No survivors.',
     set: 'base',
+    imageUrl: '/cards/orbital-striker.png',
   },
   {
     name: 'Cosmic Golem',
@@ -133,6 +142,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'COST_REDUCTION_PER_CREATURE',
     flavorText: 'Assembled from the debris of fallen ships.',
     set: 'base',
+    imageUrl: '/cards/cosmic-golem.png',
   },
   {
     name: 'Star Devourer',
@@ -145,6 +155,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'LIFESTEAL',
     flavorText: 'It feeds on light itself.',
     set: 'base',
+    imageUrl: '/cards/star-devourer.png',
   },
   {
     name: 'Galactic Leviathan',
@@ -157,6 +168,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'BOARD_CLEAR_ON_SUMMON',
     flavorText: 'When it arrives, everything else dies.',
     set: 'base',
+    imageUrl: '/cards/galactic-leviathan.png',
   },
   {
     name: 'Quantum Mimic',
@@ -169,6 +181,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'COPY_STATS',
     flavorText: 'Identity is flexible in quantum space.',
     set: 'base',
+    imageUrl: '/cards/quantum-mimic.png',
   },
   {
     name: 'Shield Drone',
@@ -181,6 +194,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'TAUNT',
     flavorText: 'Standard issue. Effective.',
     set: 'base',
+    imageUrl: '/cards/shield-drone.png',
   },
   {
     name: 'Scrap Collector',
@@ -193,6 +207,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'GROW_ON_DEATH',
     flavorText: 'One being\'s trash is another\'s upgrade.',
     set: 'base',
+    imageUrl: '/cards/scrap-collector.png',
   },
   {
     name: 'Warp Stalker',
@@ -205,6 +220,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'EVASION',
     flavorText: 'Phases through weaker defenses.',
     set: 'base',
+    imageUrl: '/cards/warp-stalker.png',
   },
 
   // ==========================================
@@ -219,6 +235,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'DAMAGE_3',
     flavorText: 'Precision. Lethality. Simplicity.',
     set: 'base',
+    imageUrl: '/cards/laser-blast.png',
   },
   {
     name: 'Shield Generator',
@@ -229,6 +246,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'BUFF_HEALTH_4',
     flavorText: 'Deploy shields!',
     set: 'base',
+    imageUrl: '/cards/shield-generator.png',
   },
   {
     name: 'Tactical Retreat',
@@ -239,6 +257,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'BOUNCE_DRAW',
     flavorText: 'Live to fight another day.',
     set: 'base',
+    imageUrl: '/cards/tactical-retreat.png',
   },
   {
     name: 'Cosmic Flux',
@@ -343,6 +362,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'EQUIP_ATTACK_2_FIRST_STRIKE',
     flavorText: 'Cut through anything.',
     set: 'base',
+    imageUrl: '/cards/plasma-blade.png',
   },
   {
     name: 'Energy Shield',
@@ -427,6 +447,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'TRAP_DAMAGE_ON_SUMMON',
     flavorText: 'Step carefully.',
     set: 'base',
+    imageUrl: '/cards/proximity-mine.png',
   },
   {
     name: 'EMP Trap',
