@@ -7,7 +7,7 @@ import 'dotenv/config'; // Load env vars
 import express from 'express';
 import { createServer } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
-import { AIController } from '../lib/game/ai-controller';
+import { AIController, type AIDifficulty } from '../lib/game/ai-controller';
 import { getAIDeck } from '../lib/game/ai-decks';
 import { GameEngine } from '../lib/game/game-engine';
 import { createGameState, createStarterDeck } from '../lib/game/game-utils';
@@ -51,7 +51,7 @@ persistedGames.forEach(pg => {
   let aiController: AIController | undefined;
   
   if (pg.aiDifficulty) {
-    aiController = new AIController(engine, 'player2', pg.aiDifficulty);
+    aiController = new AIController(engine, 'player2', pg.aiDifficulty as AIDifficulty);
   }
 
   activeGames.set(pg.gameId, {
@@ -82,6 +82,9 @@ io.on('connection', (socket) => {
       heroId,
       deck: deck || [],
     });
+
+    // Notify client
+    socket.emit('queue-joined');
 
     // Try to match
     tryMatchmaking();

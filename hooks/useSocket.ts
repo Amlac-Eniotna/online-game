@@ -163,6 +163,13 @@ export function useSocket(): UseSocketReturn {
 
     console.log('[Socket] Joining queue...', { userId, username, heroId });
     socketRef.current.emit('join-queue', { userId, username, heroId, deck });
+    
+    // Optimistic update
+    setState((prev) => ({
+      ...prev,
+      matchmakingStatus: 'searching',
+      error: null,
+    }));
   }, []);
 
   const joinAiGame = useCallback((userId: string, username: string, heroId: string, deck: any[], difficulty: string) => {

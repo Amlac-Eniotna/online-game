@@ -268,6 +268,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'DRAW_2',
     flavorText: 'Knowledge flows through the cosmos.',
     set: 'base',
+    imageUrl: '/cards/cosmic-flux.png',
   },
   {
     name: 'Meteor Strike',
@@ -278,6 +279,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'AOE_DAMAGE_5',
     flavorText: 'Call down the rocks.',
     set: 'base',
+    imageUrl: '/cards/meteor-strike.png',
   },
   {
     name: 'Vaporize',
@@ -288,6 +290,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'DESTROY_CREATURE',
     flavorText: 'Gone in an instant.',
     set: 'base',
+    imageUrl: '/cards/vaporize.png',
   },
   {
     name: 'Emergency Repairs',
@@ -298,6 +301,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'HEAL_5',
     flavorText: 'Patch it up, move it out.',
     set: 'base',
+    imageUrl: '/cards/emergency-repairs.png',
   },
   {
     name: 'Overcharge',
@@ -308,6 +312,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'BUFF_ATTACK_3_TEMP',
     flavorText: 'Maximum power!',
     set: 'base',
+    imageUrl: '/cards/overcharge.png',
   },
   {
     name: 'Time Warp',
@@ -318,6 +323,7 @@ export const CARDS: CardDefinition[] = [
     effectCode: 'EXTRA_TURN',
     flavorText: 'Bend time itself to your will.',
     set: 'base',
+    imageUrl: '/cards/time-warp.png',
   },
   {
     name: 'Neural Disruption',
